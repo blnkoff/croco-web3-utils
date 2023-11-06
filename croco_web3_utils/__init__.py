@@ -19,5 +19,5 @@ __all__ = [
 ]
 
 from .abc import Defi
-from utils import load_contracts, get_deadline, validate_network
+from .utils import load_contracts, get_deadline, validate_network
 from .types import ContractMap, ContractVersion
