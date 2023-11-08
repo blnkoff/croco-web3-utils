@@ -14,5 +14,6 @@ class ContractNotFound(Exception):
 class InvalidToken(ValueError):
     """Raised when token is not supported in a specific network in a contract"""
 
-    def __init__(self, token: Any, network: str, defi: str):
-        super().__init__(f"Token {token} is not supported in {network} for using in {defi}")
+    def __init__(self, token: Any, network: str, defi: str, supported_tokens: list[str]):
+        super().__init__(f"Token {token} is not supported in {network} for using in {defi}. "
+                         f"This network supports: {', '.join(supported_tokens)}")
