@@ -20,4 +20,5 @@ __all__ = [
 
 from .abc import Defi
 from .utils import load_contracts, get_deadline, validate_network
-from .types import ContractMap, ContractVersion
+from .types import ContractMap, ContractVersion, TokenOrAddress
+from .exceptions import InvalidToken
