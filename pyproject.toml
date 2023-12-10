@@ -1,26 +1,48 @@
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "croco-web3-utils"
-version = "0.1.0"
-authors = [
-    { name = "Alexey", email = "abelenkov2006@gmail.com" },
-]
-description = "The package containing utilities to develop Web3-based projects"
-readme = "README.md"
-requires-python = ">=3.11"
+[tool.poetry]
+name = 'croco_web3_utils'
+version = '0.1.0'
+description = 'The package containing utilities to develop Web3-based projects'
+authors = ['Alexey <abelenkov2006@gmail.com>']
+license = 'MIT'
+readme = 'README.md'
+repository = 'https://github.com/blnkoff/croco-web3-utils'
+homepage = 'https://github.com/blnkoff/croco-web3-utils'
 classifiers = [
     'Development Status :: 1 - Planning',
     'Intended Audience :: Developers',
     'Topic :: Software Development :: Build Tools',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3 :: Only',
-    'License :: OSI Approved :: Apache Software License',
+    'License :: OSI Approved :: MIT License',
+    'Operating System :: Microsoft :: Windows',
+    'Operating System :: MacOS'
+]
+packages = [{ include = 'croco_web3_utils' }]
+
+[tool.poetry.dependencies]
+python = '~3.11'
+
+[build-system]
+requires = ['poetry-core']
+build-backend = 'poetry.core.masonry.api'
+
+[project]
+name = 'croco_web3_utils'
+version = '0.1.0'
+authors = ['Alexey <abelenkov2006@gmail.com>']
+description = 'The package containing utilities to develop Web3-based projects'
+readme = 'README.md'
+requires-python = '~3.11'
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Developers',
+    'Topic :: Software Development :: Build Tools',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3 :: Only',
+    'License :: OSI Approved :: MIT License',
     'Operating System :: Microsoft :: Windows',
     'Operating System :: MacOS'
 ]
 
 [project.urls]
-source = "https://github.com/blnkoff/croco-web3-utils"
+source = 'https://github.com/blnkoff/croco-web3-utils'
