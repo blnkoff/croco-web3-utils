@@ -1,6 +1,6 @@
 from typing import Any
 
-from ether_wallet.types import Network
+from evm_wallet.types import Network
 
 
 class ContractNotFound(Exception):

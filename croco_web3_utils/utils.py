@@ -5,7 +5,7 @@ from typing import Optional
 from web3 import AsyncWeb3
 from .exceptions import ContractNotFound
 from functools import wraps, lru_cache
-from ether_wallet.types import Network
+from evm_wallet.types import Network
 from .types import ContractVersion, ContractMap
 
 

@@ -1,7 +1,7 @@
 from abc import ABC
 from typing import Optional
 from web3 import AsyncWeb3
-from ether_wallet import AsyncWallet, NetworkInfo, Wallet
+from evm_wallet import AsyncWallet, NetworkInfo, Wallet
 from .types import ContractVersion
 
 
