@@ -7,9 +7,8 @@ The package containing utilities to develop Web3-based projects
 :license: MIT, see LICENSE for more details.
 """
 
-__version__ = "0.1.0"
-
 from .abc import Defi
 from .utils import load_contracts, get_deadline, validate_network
+from .exchanges import Uniswap, PancakeSwap
 from .types import ContractMap, ContractVersion, TokenOrAddress
 from .exceptions import InvalidToken

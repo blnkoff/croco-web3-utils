@@ -1,0 +1,49 @@
+{
+  "factory": {
+    "abi": "factory.abi",
+    "address": {
+      "Arbitrum": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+      "BSC": "0xdB1d10011AD0Ff90774D0C6Bb92e5C5c8b4461F7",
+      "Ethereum": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+      "Goerli": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+      "Polygon": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+      "Optimism": "0x1F98431c8aD98523631AE4a59f267346ea31F984"
+    }
+  },
+  "non_fungible_position_manager": {
+    "abi": "non_fungible_position_manager.abi",
+    "address": {
+      "Arbitrum": "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
+      "BSC": "0x7b8A01B39D58278b5DE7e48c8449c9f4F5170613",
+      "Ethereum": "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
+      "Goerli": "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
+      "Polygon": "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
+      "Optimism": "0xC36442b4a4522E871399CD717aBDD847Ab11FE88"
+    }
+  },
+  "pool": {
+    "abi": "pool.abi"
+  },
+  "quoter_v2": {
+    "abi": "quoter_v2.abi",
+    "address": {
+      "Arbitrum": "0x61fFE014bA17989E743c5F6cB21bF9697530B21e",
+      "BSC": "0x78D78E420Da98ad378D7799bE8f4AF69033EB077",
+      "Ethereum": "0x61fFE014bA17989E743c5F6cB21bF9697530B21e",
+      "Goerli": "0x61fFE014bA17989E743c5F6cB21bF9697530B21e",
+      "Polygon": "0x61fFE014bA17989E743c5F6cB21bF9697530B21e",
+      "Optimism": "0x61fFE014bA17989E743c5F6cB21bF9697530B21e"
+    }
+  },
+  "router": {
+    "abi": "router.abi",
+    "address": {
+      "Arbitrum": "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
+      "BSC": "0xB971eF87ede563556b2ED4b1C0b0019111Dd85d2",
+      "Ethereum": "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
+      "Goerli": "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
+      "Polygon": "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
+      "Optimism": "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45"
+    }
+  }
+}

@@ -10,7 +10,7 @@ class Defi(ABC):
             self,
             wallet: AsyncWallet | Wallet,
             defi_name: str,
-            version: Optional[ContractVersion] = None
+            version: Optional[int] = None
     ):
         self.__wallet = wallet
         self._network = wallet.network
