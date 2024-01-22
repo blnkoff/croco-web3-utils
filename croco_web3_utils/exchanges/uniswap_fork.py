@@ -99,13 +99,15 @@ class UniswapFork(Defi):
 
         return await self.proxy.add_liquidity(token0, token1, amount0, amount1, fee)
 
-    async def get_token_amount(
+    async def get_output_amount(
             self,
             input_amount: TokenAmount,
             input_token: AddressLike,
-            output_token: AddressLike
+            output_token: AddressLike,
+            slippage: float = 0.0
     ) -> TokenAmount:
-        return await self.proxy.get_token_amount(input_amount, input_token, output_token)
+        output_amount = await self.proxy.get_token_amount(input_amount, input_token, output_token)
+        return int(output_amount * (1 - slippage))
 
     async def get_exchange_rate(
             self,
