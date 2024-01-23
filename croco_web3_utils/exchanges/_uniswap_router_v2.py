@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from eth_typing import ChecksumAddress
 from web3.contract import AsyncContract
 from web3.contract.contract import ContractFunction
@@ -32,7 +34,7 @@ class UniswapRouterV2(UniswapRouter):
             slippage: float = DEFAULT_SLIPPAGE,
             fee: UniswapFee = UNISWAP_FEE
     ) -> TokenAmount:
-        weth = await self._get_weth_address()
+        weth = await self.get_weth_address()
         if input_token == weth or output_token == weth:
             path = [input_token, output_token]
         else:
@@ -57,7 +59,7 @@ class UniswapRouterV2(UniswapRouter):
             slippage: float = DEFAULT_SLIPPAGE,
             fee: UniswapFee = UNISWAP_FEE
     ) -> TokenAmount:
-        weth = await self._get_weth_address()
+        weth = await self.get_weth_address()
         if input_token == weth or output_token == weth:
             path = [input_token, output_token]
         else:
@@ -75,7 +77,8 @@ class UniswapRouterV2(UniswapRouter):
 
         return amounts_in
 
-    async def _get_weth_address(self) -> ChecksumAddress:
+    @lru_cache
+    async def get_weth_address(self) -> ChecksumAddress:
         address = await self._router.functions.WETH().call()
         return address
 
@@ -160,7 +163,7 @@ class UniswapRouterV2(UniswapRouter):
     ) -> HexBytes:
         contract = self._router
         handler = contract.functions.swapExactTokensForTokens
-        weth = await self._get_weth_address()
+        weth = await self.get_weth_address()
         path = [input_token, weth, output_token]
         return await self.__input_swap(handler, input_amount, path, slippage, fee, recipient, gas, gas_price)
 
@@ -176,7 +179,7 @@ class UniswapRouterV2(UniswapRouter):
     ) -> HexBytes:
         contract = self._router
         handler = contract.functions.swapExactETHForTokens
-        weth = await self._get_weth_address()
+        weth = await self.get_weth_address()
         path = [weth, output_token]
         return await self.__input_swap(handler, input_amount, path, slippage, fee, recipient, gas, gas_price,
                                        True)
@@ -193,7 +196,7 @@ class UniswapRouterV2(UniswapRouter):
     ) -> HexBytes:
         contract = self._router
         handler = contract.functions.swapExactTokensForETH
-        weth = await self._get_weth_address()
+        weth = await self.get_weth_address()
         path = [input_token, weth]
         return await self.__input_swap(handler, input_amount, path, slippage, fee, recipient, gas, gas_price)
 
@@ -209,7 +212,7 @@ class UniswapRouterV2(UniswapRouter):
     ) -> HexBytes:
         contract = self._router
         handler = contract.functions.swapTokensForExactETH
-        weth = await self._get_weth_address()
+        weth = await self.get_weth_address()
         path = [input_token, weth]
         return await self.__output_swap(handler, output_amount, path, slippage, fee, recipient, gas, gas_price)
 
@@ -225,7 +228,7 @@ class UniswapRouterV2(UniswapRouter):
     ) -> HexBytes:
         contract = self._router
         handler = contract.functions.swapETHForExactTokens
-        weth = await self._get_weth_address()
+        weth = await self.get_weth_address()
         path = [weth, output_token]
         return await self.__output_swap(handler, output_amount, path, slippage, fee, recipient, gas, gas_price,
                                         True)
@@ -243,7 +246,7 @@ class UniswapRouterV2(UniswapRouter):
     ) -> HexBytes:
         contract = self._router
         handler = contract.functions.swapTokensForExactTokens
-        weth = await self._get_weth_address()
+        weth = await self.get_weth_address()
         path = [input_token, weth, output_token]
         return await self.__output_swap(handler, output_amount, path, slippage, fee, recipient, gas, gas_price)
 

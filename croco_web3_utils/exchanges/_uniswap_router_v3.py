@@ -1,4 +1,5 @@
 import math
+from functools import lru_cache
 from eth_typing import ChecksumAddress
 from web3.contract import AsyncContract
 from web3.contract.contract import ContractFunction
@@ -119,7 +120,8 @@ class UniswapRouterV3(UniswapRouter):
         max_input_amount = int(input_amount * (1 + slippage))
         return max_input_amount
 
-    async def _get_weth_address(self) -> ChecksumAddress:
+    @lru_cache
+    async def get_weth_address(self) -> ChecksumAddress:
         address = await self._router.functions.WETH9().call()
         return address
 
@@ -135,7 +137,7 @@ class UniswapRouterV3(UniswapRouter):
     ) -> HexBytes:
         wallet = self.wallet
         sqrt_price_limit_x96 = 0
-        input_token = await self._get_weth_address()
+        input_token = await self.get_weth_address()
         min_amount_out = await self._get_min_output_amount(input_amount, input_token, output_token, slippage, fee)
         params = {
             "tokenIn": input_token,
@@ -255,7 +257,7 @@ class UniswapRouterV3(UniswapRouter):
             amount0: Optional[TokenAmount] = None,
             fee: UniswapFee = UNISWAP_FEE
     ) -> HexBytes:
-        weth = await self._get_weth_address()
+        weth = await self.get_weth_address()
 
         if not amount0:
             amount0 = await self._get_min_output_amount(amount1, token1, weth, 0)

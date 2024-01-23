@@ -55,7 +55,7 @@ class UniswapRouter(Defi, ABC):
         pass
 
     @abstractmethod
-    async def _get_weth_address(self) -> ChecksumAddress:
+    async def get_weth_address(self) -> ChecksumAddress:
         pass
 
     @abstractmethod
@@ -149,7 +149,7 @@ class UniswapRouter(Defi, ABC):
             fee: UniswapFee = UNISWAP_FEE
     ) -> HexBytes:
         wallet = self.wallet
-        weth = await self._get_weth_address()
+        weth = await self.get_weth_address()
 
         if not amount1:
             amount1 = await self._get_min_output_amount(amount0, weth, token1, 0)
@@ -218,7 +218,7 @@ class UniswapRouter(Defi, ABC):
             token: AddressLike
     ) -> float:
         """Get the token token/ETH exchange rate"""
-        weth = await self._get_weth_address()
+        weth = await self.get_weth_address()
         amount = AsyncWeb3.to_wei(1, 'ether')
         eth_price = await self._get_min_output_amount(amount, token, weth)**(-18)
         return eth_price
@@ -282,7 +282,7 @@ class UniswapRouter(Defi, ABC):
                                                        gas_price)
         elif wallet.is_native_token(output_token):
             input_address = self.provider.to_checksum_address(input_token)
-            weth = await self._get_weth_address()
+            weth = await self.get_weth_address()
             input_amount = int(output_amount * await self.get_exchange_rate(input_address, weth))
             await wallet.approve(input_address, self._router.address, input_amount)
             tx_hash = await self._tokens_to_eth_output(output_amount, input_address, slippage, fee, recipient, gas,

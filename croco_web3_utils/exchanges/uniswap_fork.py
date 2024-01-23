@@ -1,4 +1,6 @@
+from functools import lru_cache
 from typing import Optional
+from eth_typing import ChecksumAddress
 from hexbytes import HexBytes
 from web3.contract import AsyncContract
 from web3.types import Wei
@@ -123,3 +125,7 @@ class UniswapFork(Defi):
     ) -> float:
         """Get the token token/ETH exchange rate"""
         return await self.proxy.get_eth_per_token(token)
+
+    @lru_cache
+    async def get_weth_address(self) -> ChecksumAddress:
+        return await self.proxy.get_weth_address()

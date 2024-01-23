@@ -10,20 +10,20 @@ class _TestRouterV3:
 
     @pytest.mark.asyncio
     async def test_get_pool(self, router, sub_token, native_token):
-        weth = await router.proxy._get_weth_address()
+        weth = await router.proxy.get_weth_address()
         pool = await router.proxy.get_pool(weth, sub_token)
         assert pool
 
     @pytest.mark.asyncio
     async def test_get_pool_state(self, router, sub_token):
-        weth = await router.proxy._get_weth_address()
+        weth = await router.proxy.get_weth_address()
         pool = await router.proxy.get_pool(weth, sub_token)
         pool_state = await router.proxy._get_pool_state(pool)
         assert pool_state
 
     @pytest.mark.asyncio
     async def test_get_pool_data(self, router, sub_token):
-        weth = await router.proxy._get_weth_address()
+        weth = await router.proxy.get_weth_address()
         pool = await router.proxy.get_pool(weth, sub_token)
         pool_data = await router.proxy._get_pool_data(pool)
         assert pool_data
