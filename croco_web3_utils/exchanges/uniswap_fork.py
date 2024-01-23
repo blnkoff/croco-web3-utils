@@ -8,8 +8,8 @@ from ._uniswap_router_v2 import UniswapRouterV2
 from ._uniswap_router_v3 import UniswapRouterV3
 from evm_wallet import NetworkInfo
 from evm_wallet.types import AddressLike,TokenAmount, ABI
-from croco_web3_utils.types import UniswapFee, TokenOrAddress
-from croco_web3_utils import ContractVersion, Defi
+from croco_web3_utils.types import UniswapFee, TokenOrAddress, ContractVersion
+from croco_web3_utils.abc import Defi
 from croco_web3_utils.globals import DEFAULT_SLIPPAGE, UNISWAP_FEE, TICK_SPACING
 from croco_web3_utils.exceptions import InvalidFee
 

@@ -1,7 +1,7 @@
 from .uniswap_fork import UniswapFork
-from croco_web3_utils import ContractVersion
+from croco_web3_utils.types import ContractVersion
 from evm_wallet import AsyncWallet
-from croco_web3_utils import load_contracts
+from croco_web3_utils.utils import load_contracts
 from ..globals import CONTRACTS_PATH
 
 

@@ -4,7 +4,9 @@ from web3.types import Wei
 from croco_web3_utils.exceptions import InvalidFee
 from hexbytes import HexBytes
 from croco_web3_utils.globals import DEFAULT_SLIPPAGE, UNISWAP_FEE, TICK_SPACING
-from croco_web3_utils import validate_network, Defi, ContractVersion
+from croco_web3_utils.types import ContractVersion
+from croco_web3_utils.utils import validate_network
+from croco_web3_utils.abc import Defi
 from typing import Optional
 from abc import abstractmethod, ABC
 from eth_typing import ChecksumAddress
