@@ -1,8 +1,11 @@
+from typing import Literal, get_args
 from eth_typing import ChecksumAddress
 from evm_wallet import AsyncWallet, Wallet, ZERO_ADDRESS
 from evm_wallet.types import TokenAmount
+from python_extras import in_literal
 from web3 import AsyncWeb3
 from web3.types import Wei
+from croco_web3_utils import InvalidToken
 from croco_web3_utils.types import TokenOrAddress
 from croco_web3_utils.exchanges.exchanges import Uniswap
 
@@ -34,3 +37,13 @@ def validate_route(
         output_token = AsyncWeb3.to_checksum_address(output_token)
 
     return input_token, value, output_token
+
+
+def validate_token(
+        token: str,
+        token_literal: Literal,
+        network: str,
+        defi: str
+) -> None:
+    if not in_literal(token, token_literal):
+        raise InvalidToken(token, network, defi, get_args(token_literal))
