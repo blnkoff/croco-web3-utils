@@ -1,5 +1,5 @@
 import math
-from functools import lru_cache
+from async_lru import alru_cache
 from eth_typing import ChecksumAddress
 from web3.contract import AsyncContract
 from web3.contract.contract import ContractFunction
@@ -120,7 +120,7 @@ class UniswapRouterV3(UniswapRouter):
         max_input_amount = int(input_amount * (1 + slippage))
         return max_input_amount
 
-    @lru_cache
+    @alru_cache()
     async def get_weth_address(self) -> ChecksumAddress:
         address = await self._router.functions.WETH9().call()
         return address
