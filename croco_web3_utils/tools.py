@@ -5,7 +5,7 @@ from evm_wallet.types import TokenAmount
 from python_extras import in_literal
 from web3 import AsyncWeb3
 from web3.types import Wei
-from croco_web3_utils import InvalidToken
+from croco_web3_utils.exceptions import InvalidToken
 from croco_web3_utils.types import TokenOrAddress
 from croco_web3_utils.exchanges.exchanges import Uniswap
 
