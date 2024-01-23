@@ -4,7 +4,6 @@ from web3.types import Wei
 from croco_web3_utils.exceptions import InvalidFee
 from hexbytes import HexBytes
 from croco_web3_utils.globals import DEFAULT_SLIPPAGE, UNISWAP_FEE, TICK_SPACING
-from croco_web3_utils.types import ContractVersion
 from croco_web3_utils.utils import validate_network
 from croco_web3_utils.abc import Defi
 from typing import Optional
@@ -23,7 +22,7 @@ class UniswapRouter(Defi, ABC):
             router: AsyncContract,
             factory: AsyncContract,
             pool_abi: ABI,
-            version: ContractVersion
+            version: int
     ):
         super().__init__(wallet, defi_name, version)
         self._router = router
@@ -193,7 +192,7 @@ class UniswapRouter(Defi, ABC):
         pass
 
     @validate_network
-    async def get_token_amount(
+    async def get_output_amount(
             self,
             amount0: TokenAmount,
             token0: AddressLike,

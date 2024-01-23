@@ -2,14 +2,11 @@ import os
 import time
 import json
 from typing import Optional
-from eth_typing import ChecksumAddress
-from evm_wallet import AsyncWallet, Wallet, ZERO_ADDRESS
 from web3 import AsyncWeb3
-from web3.types import Wei
-from .exceptions import ContractNotFound
+from croco_web3_utils.exceptions import ContractNotFound
 from functools import wraps, lru_cache
-from evm_wallet.types import Network, TokenAmount
-from .types import ContractVersion, ContractMap, TokenOrAddress
+from evm_wallet.types import Network
+from croco_web3_utils.types import ContractMap
 
 
 def pascal_to_snake(s: str) -> str:
@@ -25,7 +22,7 @@ def load_contracts(
         defi: str,
         network: Network | str,
         contracts_path: str,
-        version: Optional[ContractVersion] = None
+        version: Optional[int] = None
 ) -> ContractMap:
     folder_name = pascal_to_snake(defi)
     path = os.path.join(contracts_path, folder_name)
@@ -93,24 +90,3 @@ def validate_network(func):
         return func(self, *args, **kwargs)
 
     return wrapper
-
-
-def validate_route(
-        wallet: AsyncWallet | Wallet,
-        input_token: TokenOrAddress,
-        input_amount: TokenAmount,
-        output_token: TokenOrAddress
-) -> tuple[ChecksumAddress, Wei, ChecksumAddress]:
-    if wallet.is_native_token(input_token):
-        value = input_amount
-        input_token = ZERO_ADDRESS
-    else:
-        value = 0
-        input_token = AsyncWeb3.to_checksum_address(input_token)
-
-    if wallet.is_native_token(output_token):
-        output_token = ZERO_ADDRESS
-    else:
-        output_token = AsyncWeb3.to_checksum_address(output_token)
-
-    return input_token, value, output_token

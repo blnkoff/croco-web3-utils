@@ -1,15 +1,15 @@
 from .uniswap_fork import UniswapFork
-from croco_web3_utils.types import ContractVersion
 from evm_wallet import AsyncWallet
 from croco_web3_utils.utils import load_contracts
-from ..globals import CONTRACTS_PATH
+from croco_web3_utils.globals import CONTRACTS_PATH
+from croco_web3_utils.types import UniswapVersion
 
 
 class Uniswap(UniswapFork):
     def __init__(
             self,
             wallet: AsyncWallet,
-            version: ContractVersion = 3
+            version: UniswapVersion = 3
     ):
         contracts = load_contracts(
             wallet.provider,
@@ -31,7 +31,7 @@ class PancakeSwap(UniswapFork):
     def __init__(
             self,
             wallet: AsyncWallet,
-            version: ContractVersion = 2
+            version: UniswapVersion = 2
     ):
         contracts = load_contracts(
             wallet.provider,

@@ -2,7 +2,6 @@ from typing import Literal, Union, TypedDict
 from evm_wallet.types import ABI, AddressLike
 from web3.contract import AsyncContract, Contract
 
-ContractVersion = Literal[2, 3]
 ContractMap = dict[str, AsyncContract | ABI | Contract]
 TokenOrAddress = Union[AddressLike, str]
 
@@ -11,6 +10,7 @@ RouterOperation = Literal['input', 'output']
 UniswapFee = Literal[500, 3000, 10000]
 InterestRateMode = Literal['stable', 'variable']
 NumberInterestRateMode = Literal[1, 2]
+UniswapVersion = Literal[2, 3]
 
 
 class PoolData(TypedDict):

@@ -1,5 +1,5 @@
 from functools import lru_cache
-from typing import Optional
+from typing import Optional, cast
 from eth_typing import ChecksumAddress
 from hexbytes import HexBytes
 from web3.contract import AsyncContract
@@ -8,12 +8,12 @@ from evm_wallet import AsyncWallet
 from ._uniswap_router import UniswapRouter
 from ._uniswap_router_v2 import UniswapRouterV2
 from ._uniswap_router_v3 import UniswapRouterV3
-from evm_wallet import NetworkInfo
-from evm_wallet.types import AddressLike,TokenAmount, ABI
-from croco_web3_utils.types import UniswapFee, TokenOrAddress, ContractVersion
+from evm_wallet.types import AddressLike, TokenAmount, ABI, Network
+from croco_web3_utils.types import UniswapFee, TokenOrAddress
 from croco_web3_utils.abc import Defi
-from croco_web3_utils.globals import DEFAULT_SLIPPAGE, UNISWAP_FEE, TICK_SPACING
+from croco_web3_utils.globals import DEFAULT_SLIPPAGE, UNISWAP_FEE, TICK_SPACING, CONTRACTS_PATH
 from croco_web3_utils.exceptions import InvalidFee
+from croco_web3_utils.utils import load_contracts
 
 
 class UniswapFork(Defi):
@@ -26,7 +26,7 @@ class UniswapFork(Defi):
             pool_abi: ABI,
             quoter_v2: Optional[AsyncContract] = None,
             non_fungible_position_manager: Optional[AsyncContract] = None,
-            version: ContractVersion = 2,
+            version: int = 2,
     ):
         self.__version = version
         super().__init__(wallet, defi_name, version)
@@ -35,19 +35,12 @@ class UniswapFork(Defi):
             case 2:
                 self.__proxy = UniswapRouterV2(wallet, defi_name, router, factory, pool_abi)
             case 3:
-                self.__proxy = UniswapRouterV3(wallet, defi_name, router, factory, quoter_v2, non_fungible_position_manager, pool_abi)
-
-    @property
-    def version(self) -> ContractVersion:
-        return self.__version
+                self.__proxy = UniswapRouterV3(wallet, defi_name, router, factory, quoter_v2,
+                                               non_fungible_position_manager, pool_abi)
 
     @property
     def proxy(self) -> UniswapRouter:
         return self.__proxy
-
-    @property
-    def network(self) -> NetworkInfo:
-        return self.proxy.network
 
     async def swap(
             self,
@@ -108,7 +101,7 @@ class UniswapFork(Defi):
             output_token: AddressLike,
             slippage: float = 0.0
     ) -> TokenAmount:
-        output_amount = await self.proxy.get_token_amount(input_amount, input_token, output_token)
+        output_amount = await self.proxy.get_output_amount(input_amount, input_token, output_token)
         return int(output_amount * (1 - slippage))
 
     async def get_exchange_rate(
@@ -127,5 +120,20 @@ class UniswapFork(Defi):
         return await self.proxy.get_eth_per_token(token)
 
     @lru_cache
-    async def get_weth_address(self) -> ChecksumAddress:
-        return await self.proxy.get_weth_address()
+    async def get_weth_address(self, network: Optional[Network] = None) -> ChecksumAddress:
+        current_network = self.network['network']
+        network = cast(Network, network)
+
+        if network and network != current_network:
+            router = load_contracts(
+                self.provider,
+                self._defi_name,
+                network,
+                CONTRACTS_PATH,
+                3
+            )['router']
+            weth = await router.functions.WETH9().call()
+        else:
+            weth = await self.proxy.get_weth_address()
+
+        return weth
