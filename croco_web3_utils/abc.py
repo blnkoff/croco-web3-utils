@@ -2,7 +2,6 @@ from abc import ABC
 from typing import Optional
 from web3 import AsyncWeb3
 from evm_wallet import AsyncWallet, NetworkInfo, Wallet
-from .types import ContractVersion
 
 
 class Defi(ABC):
@@ -30,5 +29,5 @@ class Defi(ABC):
         return self.wallet.provider
 
     @property
-    def version(self) -> ContractVersion | None:
+    def version(self) -> int | None:
         return self._version
