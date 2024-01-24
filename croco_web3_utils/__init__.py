@@ -10,6 +10,5 @@ The package containing utilities to develop Web3-based projects
 from .abc import Defi
 from .utils import load_contracts, get_deadline, validate_network
 from .tools import validate_route, validate_token
-from .exchanges import Uniswap, PancakeSwap
 from .types import ContractMap, TokenOrAddress
 from .exceptions import InvalidToken, InvalidToken
