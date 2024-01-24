@@ -21,7 +21,7 @@ class InvalidToken(TypeError):
 class InvalidRoute(ValueError):
     """Raised when provided token route is invalid"""
     def __init__(self, input_token: str, output_token: str, source_network: str, destination_network: str, defi: str):
-        super().__init__(f"Token route {input_token} ({source_network}) --> {output_token} ({destination_network} is"
+        super().__init__(f"Token route {input_token} ({source_network}) --> {output_token} ({destination_network}) is "
                          f"not valid for {defi}")
 
 
