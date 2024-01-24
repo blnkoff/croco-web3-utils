@@ -11,11 +11,11 @@ class ContractNotFound(ValueError):
 
 
 class InvalidToken(TypeError):
-    """Raised when token is not supported in a specific network in a contract"""
+    """Raised when token is not supported in a specific network in a contract or in a contract as a whole"""
 
     def __init__(self, token: Any, network: str, defi: str, supported_tokens: list[str] | tuple[str]):
-        super().__init__(f"Token {token} is not supported in {network} for using in {defi}. "
-                         f"This network supports: {', '.join(supported_tokens)}")
+        super().__init__(f"Token {token} is not supported in {network} or in a contract as a whole for "
+                         f"using in {defi}. This contract supports: {', '.join(supported_tokens)}")
 
 
 class InvalidRoute(ValueError):
